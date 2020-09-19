@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'endApi.apps.EndapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'endApi.apps.EndapiConfig',
+    
     'rest_framework',
     'rest_framework.authtoken',
     'knox',
@@ -58,16 +59,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',   
         'knox.auth.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
     ],
      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
 }
 
+
+
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'youremail@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpassword'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'rubyks@gmail.com'
+EMAIL_HOST_PASSWORD = 'password from https://security.google.com/settings/security/apppasswords'
 
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"

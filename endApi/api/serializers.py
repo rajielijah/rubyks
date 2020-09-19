@@ -5,27 +5,19 @@ from django.core.paginator import Paginator
 from rest_framework.settings import api_settings
 from django.contrib.auth import authenticate
 
-class UserSerializer(serializers.ModelSerializer):
-   
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password', ]
-
-class EmailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email']
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    email = EmailSerializer(required=True)
     class Meta:
         model = Profile
-        fields = ('id','company_name', 'name', 'phone', 'whatsapp', 'bio', 'gender', 'location', 'state', 'email' )
+        fields = ('id', 'name', 'phone', 'whatsapp', 'bio', 'gender', 'location', 'state',  )
 
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password', 'profile']
 
-
-# Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
@@ -71,10 +63,10 @@ class LoginSerializer(serializers.Serializer):
         return user
 
 class AuthorPostSerializer(serializers.ModelSerializer):
-    # company_name = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    # company_name = serializers.SlugRelatedField(read_only=True, slug_field='company_name')
     class Meta:
         model = Profile
-        fields = ('avatar','company_name','name')
+        fields = ('id', 'avatar','name')
 class PostSerializer(serializers.ModelSerializer):
     author = AuthorPostSerializer(required=True)
 

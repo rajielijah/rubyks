@@ -53,6 +53,7 @@ class Profile(models.Model):
     
     def __str__(self):
         return self.name
+    
 
     # @receiver(post_save, sender=User)
     # def create_user_profile(sender, instance, created, **kwargs):

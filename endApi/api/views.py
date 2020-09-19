@@ -13,6 +13,7 @@ from rest_framework import status
 from django.contrib.auth import login 
 from django.http import HttpResponse
 from rest_framework import permissions
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView
 from django.contrib.auth.decorators import login_required
@@ -21,6 +22,7 @@ from rest_framework.generics import (
     UpdateAPIView, DestroyAPIView
 )
 from rest_framework.pagination import PageNumberPagination
+from django.shortcuts import get_object_or_404
 
 class LoginAPI(KnoxLoginView):
     permission_classes = (permissions.AllowAny,)
@@ -61,7 +63,8 @@ class ProfileView(viewsets.ModelViewSet):
     lookup_field = 'id' 
     queryset = Profile.objects.all()
     serializer_class =ProfileSerializer
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
+
 
 # class UserList(ListAPIView):
 #     queryset = User.objects.all()
@@ -78,7 +81,8 @@ class PostView(viewsets.ModelViewSet):
     lookup_field = 'id' 
     queryset = Post.objects.all()
     serializer_class =PostSerializer
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication, )
     pagination_class = PageNumberPagination
 
 
@@ -91,7 +95,7 @@ class UserView(viewsets.ModelViewSet):
 class ChangePasswordView(UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     model = User
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self, queryset=None):
         obj = self.request.user
