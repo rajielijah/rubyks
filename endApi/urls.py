@@ -9,7 +9,7 @@ from rest_auth.views import PasswordResetConfirmView
 
 router = routers.SimpleRouter()
 router.register(r'profile', ProfileView, 'userprofile')
-router.register(r'api/user', UserView, 'userdelete')
+router.register(r'user', UserView, 'userdelete')
 router.register(r'post', PostView, 'post')
 
     

@@ -90,6 +90,7 @@ class UserView(viewsets.ModelViewSet):
     lookup_field = 'username' 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (AllowAny,)
 
 
 class ChangePasswordView(UpdateAPIView):
