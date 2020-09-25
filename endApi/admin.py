@@ -5,5 +5,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('author', 'product_name', 'product_description', 'product_details', 'price', 'category', 'posted_on')
     date_hierarchy = 'posted_on'
 
-admin.site.register(Profile),
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('name',  'company_name','user', 'gender', 'id')
+admin.site.register(Profile, ProfileAdmin),
 admin.site.register(Post, PostAdmin)

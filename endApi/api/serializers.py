@@ -4,19 +4,16 @@ from endApi.models import  Profile, Post
 from django.core.paginator import Paginator
 from rest_framework.settings import api_settings
 from django.contrib.auth import authenticate
+from rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
 
 
+class LoginSerializer(RestAuthLoginSerializer):
+    username = None
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ('id', 'name', 'phone', 'whatsapp', 'bio', 'gender', 'location', 'state',  )
 
-class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password', 'profile']
+class SocialSerializer(serializers.Serializer):
+    provider = serializers.CharField(max_length=255, required=True)
+    access_token = serializers.CharField(max_length=4096, required=True, trim_whitespace=True)
 
 class RegisterSerializer(serializers.ModelSerializer):
     
@@ -67,21 +64,26 @@ class AuthorPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('id', 'avatar','name')
-class PostSerializer(serializers.ModelSerializer):
-    author = AuthorPostSerializer(required=True)
 
+class ProfileSerializer(serializers.ModelSerializer):
+    # user = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    class Meta:
+        model = Profile
+        fields = ('id', 'avatar', 'name', 'phone', 'whatsapp', 'bio', 'gender', 'location', 'state',  'user' )
+
+
+class PostSerializer(serializers.ModelSerializer):   
+    author  = AuthorPostSerializer(read_only=True)
     class Meta:
         model  = Post
         fields = ( 'id', 'author',  'category', 'product_name', 'price','product_description', 'product_details',  'image', 'posted_on')
 
 
-    def create(self, validated_data):
-        
-        author_data = validated_data.pop('author')
-        author = AuthorPostSerializer.create(AuthorPostSerializer(), validated_data=author_data)
-        detail, created = Post.objects.update_or_create(author=author,
-                        subject_major=validated_data.pop('subject_major'))
-        return detail
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password', 'profile']
 
 class ChangePasswordSerializer(serializers.Serializer):
     model = User

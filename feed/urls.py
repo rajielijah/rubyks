@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('endApi.urls')),
     path('messages/', include('postman.urls')),
+    path('api/auth/oauth/', include('rest_framework_social_oauth2.urls'))
 ]
 
 if settings.DEBUG:
