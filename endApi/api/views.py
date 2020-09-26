@@ -10,7 +10,7 @@ from endApi.models import Profile, Post, User
 from rest_framework.views import APIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework import status
-from django.contrib.auth import login 
+from django.contrib.auth import login
 from django.http import HttpResponse
 from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
@@ -35,7 +35,7 @@ class LoginAPI(KnoxLoginView):
         return super(LoginAPI, self).post(request, format=None)
 
 class LoginAPIView(generics.GenericAPIView):
-    serializer_class = LoginSerializer        
+    serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -56,11 +56,11 @@ class RegisterAPI(generics.GenericAPIView):
         return Response({
         "user": UserSerializer(user, context=self.get_serializer_context()).data,
         "token": AuthToken.objects.create(user)[1]
-        })        
+        })
 
 
 class ProfileView(viewsets.ModelViewSet):
-    lookup_field = 'id' 
+    lookup_field = 'id'
     queryset = Profile.objects.all()
     serializer_class =ProfileSerializer
     permission_classes = (permissions.IsAuthenticated,)
@@ -77,8 +77,8 @@ class ProfileView(viewsets.ModelViewSet):
 #     serializer_class =UserSerializer
 #     permission_classes = (permissions.AllowAny,)
 
-class PostView(viewsets.ModelViewSet):    
-    lookup_field = 'id' 
+class PostView(viewsets.ModelViewSet):
+    lookup_field = 'id'
     queryset = Post.objects.all()
     serializer_class =PostSerializer
     permission_classes = (IsAuthenticated,)
@@ -87,7 +87,7 @@ class PostView(viewsets.ModelViewSet):
 
 
 class UserView(viewsets.ModelViewSet):
-    lookup_field = 'username' 
+    lookup_field = 'username'
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)

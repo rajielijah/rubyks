@@ -25,7 +25,7 @@ SECRET_KEY = '*)o9)!toi!b&!n6)$ag%sw9s44h$cpwbnaeqd76@0a5+*z4@($'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jahbless1.pythonanywhere.com']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
     'rest_framework.authtoken',
     'knox',
@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django.contrib.sites',
     'django_rest_passwordreset',
-    'postman'
+
 ]
 
 REST_FRAMEWORK = {
@@ -57,9 +57,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',   
+        'rest_framework.authentication.TokenAuthentication',
         'knox.auth.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        # 'rest_framework.authentication.SessionAuthentication'
     ],
      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
@@ -73,6 +73,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'rubyks@gmail.com'
 EMAIL_HOST_PASSWORD = 'password from https://security.google.com/settings/security/apppasswords'
 
+
+# REST_AUTH_SERIALIZERS = {'LOGIN_SERIALIZER': 'path.to.your.LoginSerializer'}
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
@@ -98,7 +100,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'feed.urls'
+ROOT_URLCONF = 'rubyk.urls'
 
 TEMPLATES = [
     {

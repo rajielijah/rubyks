@@ -4,7 +4,11 @@ from endApi.models import  Profile, Post
 from django.core.paginator import Paginator
 from rest_framework.settings import api_settings
 from django.contrib.auth import authenticate
+from rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
 
+
+class LoginSerializer(RestAuthLoginSerializer):
+    username = None
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -19,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'profile']
 
 class RegisterSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = User
         fields = ('id', 'company_name', 'email', 'password')
@@ -76,7 +80,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
-        
+
         author_data = validated_data.pop('author')
         author = AuthorPostSerializer.create(AuthorPostSerializer(), validated_data=author_data)
         detail, created = Post.objects.update_or_create(author=author,
