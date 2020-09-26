@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
 
+=======
+    'postman',
+    
+>>>>>>> afaa8063c1634982e92cde53f88b3879c458d652
     'rest_framework',
     'rest_framework.authtoken',
     'knox',
@@ -47,10 +52,30 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.twitter',
     'django.contrib.sites',
     'django_rest_passwordreset',
+<<<<<<< HEAD
 
+=======
+      'oauth2_provider',
+    # 'social_django',
+    'rest_framework_social_oauth2',
+ 
+>>>>>>> afaa8063c1634982e92cde53f88b3879c458d652
 ]
+
+SOCIALACCOUNT_PROVIDERS = {'facebook': {
+                            'METHOD':'oauth2',
+                            'SCOPE': ['email'],
+                            "AUTH_PARAMS":{'auth_type':'reauthenticate'},
+                            'LOCALE_FUNC': lambda request: 'en_US',
+                            'VERSION': 'v2.4'
+                            },  
+
+                        'google':{}, 'twitter':{}} 
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -62,8 +87,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication'
     ],
      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 10
 }
+
 
 
 
@@ -88,7 +114,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-SITE_ID = 1
+SITE_ID =2
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -98,9 +124,38 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
+<<<<<<< HEAD
 ROOT_URLCONF = 'rubyk.urls'
+=======
+SOCIAL_AUTH_FACEBOOK_KEY = 317480512683324
+SOCIAL_AUTH_FACEBOOK_SECRET = '28ae53e5e02024abaca769d0bc9a62a8'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+'fields': 'id, name, email' }
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+SOCIAL_AUTH_PIPELINE = (
+'social_core.pipeline.social_auth.social_details',
+'social_core.pipeline.social_auth.social_uid',
+'social_core.pipeline.social_auth.auth_allowed',
+'social_core.pipeline.social_auth.social_user',
+'social_core.pipeline.user.get_username',
+'social_core.pipeline.social_auth.associate_by_email',
+'social_core.pipeline.user.create_user',
+'social_core.pipeline.social_auth.associate_user',
+'social_core.pipeline.social_auth.load_extra_data',
+'social_core.pipeline.user.user_details', )
+
+
+ROOT_URLCONF = 'feed.urls'
+>>>>>>> afaa8063c1634982e92cde53f88b3879c458d652
 
 TEMPLATES = [
     {

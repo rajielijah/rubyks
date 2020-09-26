@@ -20,8 +20,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('', include('endApi.urls'))
     # path('messages/', include('postman.urls')),
+=======
+    path('', include('endApi.urls')),
+    path('messages/', include('postman.urls')),
+    path('api/auth/oauth/', include('rest_framework_social_oauth2.urls'))
+>>>>>>> afaa8063c1634982e92cde53f88b3879c458d652
 ]
 
 if settings.DEBUG:

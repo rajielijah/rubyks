@@ -23,7 +23,7 @@ CATEGORY = (
 
 class Post(models.Model):
     product_name = models.CharField(max_length=200)
-    author = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    author = models.ForeignKey('Profile', null=True, blank=True, on_delete=models.CASCADE)
     product_description = models.CharField(max_length=400)
     category  = models.CharField(max_length=190, choices=CATEGORY)
     product_details = models.TextField()
@@ -45,7 +45,7 @@ class Profile(models.Model):
     whatsapp = models.CharField(max_length=11)
     location  = models.CharField(max_length=40)
     state = models.CharField (max_length=200)
-    email  = models.OneToOneField(User, on_delete=models.CASCADE)
+    user  = models.OneToOneField(User, default=None, null=True, on_delete=models.CASCADE)
     date_joined  = models.DateTimeField(auto_now_add=True)
     bio  = models.CharField(max_length=300, null=True, blank=False)
     gender  = models.CharField(max_length=10, choices=GENDER_CHOICES)
@@ -63,3 +63,6 @@ class Profile(models.Model):
     # @receiver(post_save, sender=User)
     # def save_user_profile(sender, instance, **kwargs):
     #     instance.profile.save()
+
+
+ 
